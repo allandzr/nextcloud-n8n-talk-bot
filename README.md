@@ -1,227 +1,169 @@
-# Nextcloud Talk Bot
+# n8n Talk Bot for Nextcloud
 
-🤖 Advanced bot for Nextcloud Talk conversations with intelligent responses and custom commands.
+🤖 **Intelligent bot for automating communication through n8n workflows**
 
-## Features
+A Nextcloud Talk bot that forwards all chat messages to external n8n workflows and returns automated responses. Perfect for creating intelligent chatbots, customer support automation, and workflow triggers directly from your Nextcloud Talk conversations.
 
-- **Smart Bot** - Intelligent bot that can respond to messages in Talk conversations
-- **Chat Integration** - Seamlessly integrates with Nextcloud Talk API
-- **Custom Commands** - Supports custom commands and responses
-- **Configurable** - Admin settings for bot configuration
-- **Analytics** - Basic usage analytics and logging
-- **Webhook Support** - Can receive and respond to webhook events
-- **Rich Responses** - Supports rich text formatting and reactions
-- **Multi-language Support** - Commands available in English and Russian
+## ✨ Features
 
-## Installation
+- **🔄 n8n Integration**: Forward all messages to n8n webhooks for processing
+- **🤖 Automated Responses**: Receive and display responses from n8n workflows  
+- **⚙️ Admin Configuration**: Easy setup through Nextcloud admin panel
+- **💬 Single Command**: `/about` command shows bot info and configuration
+- **🛡️ Error Handling**: Graceful fallback when n8n is unavailable
+- **📊 Status Monitoring**: Real-time configuration display
 
-1. **Download** this app from the Nextcloud App Store or clone this repository into your `apps-extra` directory
-2. **Enable** the app in your Nextcloud admin panel
-3. **Configure** the bot in Admin Settings → Additional → Nextcloud Talk Bot
-4. **Enable Talk** - Make sure Nextcloud Talk app is installed and enabled
+## 🚀 Installation
 
-## Configuration
+### Method 1: From GitHub Release
 
-### Admin Settings
+1. Download the latest release from [GitHub Releases](https://github.com/allandzr/nextcloud-n8n-talk-not/releases)
+2. Extract to your Nextcloud apps directory:
+   ```bash
+   cd /path/to/nextcloud/apps-extra/
+   tar -xzf n8n-talk-bot.tar.gz
+   ```
+3. Enable the app:
+   ```bash
+   sudo -u www-data php occ app:enable n8n-talk-bot
+   ```
 
-Navigate to **Admin Settings → Additional → Nextcloud Talk Bot** to configure:
+### Method 2: From Source
 
-- **Bot Name** - Display name for the bot
-- **Bot Description** - Description of the bot's purpose
-- **Command Prefix** - Character(s) that prefix bot commands (default: `!`)
-- **Response Mode** - How the bot responds to messages:
-  - `auto` - Responds to keywords automatically
-  - `manual` - Only responds to specific triggers
-  - `hybrid` - Combination of auto and manual
-- **Features** - Enable/disable bot features:
-  - `webhook` - Receive chat messages as webhooks
-  - `response` - Post messages and reactions as responses
-  - `event` - Read posted messages from local events
-  - `reaction` - Get notified about reactions
+1. Clone the repository:
+   ```bash
+   cd /path/to/nextcloud/apps-extra/
+   git clone https://github.com/allandzr/nextcloud-n8n-talk-not.git n8n-talk-bot
+   ```
+2. Enable the app:
+   ```bash
+   sudo -u www-data php occ app:enable n8n-talk-bot
+   ```
 
-### Talk Integration
+## ⚙️ Configuration
 
-The bot integrates with Nextcloud Talk through:
+1. **Access Admin Panel**: Go to **Settings → Administration → n8n Talk Bot**
+2. **Enable the Bot**: Check "Enable Talk Bot"
+3. **Configure n8n Integration**:
+   - Check "Enable n8n Integration"  
+   - Enter your n8n webhook URL
+4. **Save Settings**
 
-1. **Event Listeners** - Listens to chat messages in real-time
-2. **Talk Broker API** - Uses Nextcloud's Talk integration API
-3. **Webhook Support** - Can receive webhook notifications from Talk
-
-## Usage
-
-### Commands
-
-All commands start with the configured prefix (default `!`):
-
-#### Basic Commands
-- `!help` - Show help message
-- `!ping` - Test bot responsiveness
-- `!info` - Show bot information
-- `!status` - Show bot status
-- `!version` - Show bot version
-
-#### Utility Commands
-- `!time` - Show current time
-- `!date` - Show current date
-- `!echo <text>` - Repeat the provided text
-- `!random <number>` - Generate random number from 1 to specified number
-- `!calc <expression>` - Simple calculator
-
-#### Russian Commands
-The bot also supports Russian commands:
-- `!помощь` - Help
-- `!время` - Time
-- `!дата` - Date
-- `!повтори <текст>` - Echo
-- `!случайно <число>` - Random
-- `!вычисли <выражение>` - Calculate
-
-### Auto-responses
-
-The bot can automatically respond to common phrases:
-- "привет" / "hello" → Greeting response
-- "спасибо" / "thanks" → Acknowledgment
-- "как дела" / "how are you" → Status response
-- "время" / "time" → Current time
-- "дата" / "date" → Current date
-
-### Mentions
-
-Mention the bot with `@BotName` to get its attention for help or information.
-
-## Development
-
-### Project Structure
-
+### Example n8n Webhook URL:
 ```
-nextcloud-talk-bot/
+https://your-n8n-instance.com/webhook/your-webhook-id
+```
+
+## 🔌 n8n Workflow Setup
+
+### Request Format (sent to n8n):
+```json
+{
+  "messageId": "message_123",
+  "conversationToken": "conversation_abc123",
+  "userId": "user_456",
+  "userDisplayName": "John Doe", 
+  "message": "Hello, how are you?",
+  "timestamp": "2025-01-14T20:06:25Z",
+  "messageType": "chat"
+}
+```
+
+### Response Format (from n8n):
+```json
+{
+  "success": true,
+  "response": "Hello! I'm doing great, thanks for asking!",
+  "shouldReply": true
+}
+```
+
+**Alternative response format:**
+```json
+{
+  "message": "Your workflow response here"
+}
+```
+
+## 🎯 Usage
+
+### For Users:
+- Type `/about` in any Talk conversation to see bot info and configuration
+- All other messages are automatically forwarded to n8n workflows (when enabled)
+- Receive automated responses from your n8n workflows
+
+### For Administrators:
+- Configure bot settings in **Settings → Administration → n8n Talk Bot**
+- Monitor bot status and n8n integration health
+- Enable/disable features as needed
+
+## 🛠️ Development
+
+### Requirements:
+- Nextcloud 25.0+
+- PHP 8.0+
+- Nextcloud Talk app enabled
+
+### Project Structure:
+```
+n8n-talk-bot/
 ├── appinfo/
 │   ├── info.xml              # App metadata
 │   └── routes.php            # API routes
 ├── lib/
-│   ├── AppInfo/
-│   │   └── Application.php   # Main app class
-│   ├── Bot/
-│   │   ├── BotManager.php    # Main bot logic
-│   │   ├── CommandHandler.php # Command processing
-│   │   └── MessageProcessor.php # Message processing
-│   ├── Controller/
-│   │   ├── AdminController.php # Admin API
-│   │   ├── ApiController.php   # Public API
-│   │   └── WebhookController.php # Webhook handling
-│   ├── Listener/
-│   │   └── TalkChatMessageListener.php # Talk event listener
-│   ├── Service/
-│   │   ├── BotConfigService.php # Configuration management
-│   │   └── WebhookService.php   # Webhook processing
-│   └── Settings/
-│       └── AdminSettings.php   # Admin settings interface
-└── templates/
-    └── admin-settings.php     # Admin settings template
+│   ├── Bot/                  # Bot logic
+│   ├── Controller/           # API controllers  
+│   ├── Listener/             # Event listeners
+│   ├── Service/              # Core services
+│   └── Settings/             # Admin settings
+├── templates/
+│   └── admin-settings.php    # Admin panel template
+├── js/
+│   └── admin-settings.js     # Frontend JavaScript
+└── css/
+    └── admin-settings.css    # Styles
 ```
 
-### Architecture
-
-The bot uses an event-driven architecture:
-
-1. **Event Listener** - Captures chat messages from Talk
-2. **Message Processor** - Analyzes and categorizes messages
-3. **Command Handler** - Processes bot commands
-4. **Bot Manager** - Coordinates responses and actions
-5. **Config Service** - Manages bot configuration
-6. **Webhook Service** - Handles external webhook requests
-
-### API Endpoints
-
-#### Admin API
-- `GET /api/v1/admin/config` - Get bot configuration
-- `PUT /api/v1/admin/config` - Update bot configuration
-- `POST /api/v1/admin/secret` - Regenerate bot secret
-- `POST /api/v1/admin/test` - Test bot configuration
-
-#### Public API
-- `GET /api/v1/status` - Get bot status
-- `POST /webhook` - Receive webhook from Talk
-- `GET /webhook/status` - Check webhook status
-
-#### OCS API
-- `GET /api/v1/bot/info` - Get bot information (OCS format)
-
-### Dependencies
-
-- **Nextcloud** 28+ (PHP 8.1+)
-- **Talk App** (spreed) - Required for chat functionality
-- **PHP Extensions** - json, openssl for webhook signatures
-
-## Configuration Examples
-
-### Basic Setup
-
-```php
-// Enable bot
-$config->setBotEnabled(true);
-$config->setBotName('MyBot');
-$config->setBotDescription('Helpful assistant for our team');
-$config->setCommandPrefix('!');
-$config->setResponseMode('hybrid');
-$config->setBotFeatures(['webhook', 'response', 'event']);
-```
-
-### Webhook Configuration
-
+### Local Development:
 ```bash
-# Register bot with Talk (using occ commands)
-php occ talk:bot:install "MyBot" "your-secret-key-here" "https://yourserver.com/apps/nextcloud_talk_bot/webhook" "Team assistant bot"
+# Clone for development
+git clone https://github.com/allandzr/nextcloud-n8n-talk-not.git
+cd nextcloud-n8n-talk-not
 
-# Enable in conversations
-php occ talk:bot:setup 1 conversation-token
+# Enable in development environment
+docker-compose exec nextcloud php occ app:enable n8n-talk-bot
 ```
 
-## Troubleshooting
+## 🔧 API Endpoints
 
-### Common Issues
+- `POST /apps/n8n-talk-bot/admin/config` - Save bot configuration
+- `POST /apps/n8n-talk-bot/webhook/receive` - Receive external webhooks
+- `GET /apps/n8n-talk-bot/api/status` - Get bot status
 
-1. **Bot not responding**
-   - Check if bot is enabled in admin settings
-   - Verify Talk app is installed and working
-   - Check Nextcloud logs for errors
-
-2. **Commands not working**
-   - Verify command prefix in settings
-   - Check if message starts with correct prefix
-   - Ensure bot name doesn't conflict with usernames
-
-3. **Webhook issues**
-   - Check webhook URL accessibility
-   - Verify bot secret configuration
-   - Review webhook logs in admin panel
-
-### Logs
-
-Check logs in:
-- Nextcloud admin panel → Logging
-- Admin settings → Talk Bot → Debug logs
-
-### Support
-
-- **Issues** - Report bugs on GitHub
-- **Documentation** - Check Nextcloud developer docs
-- **Community** - Ask questions in Nextcloud forums
-
-## License
-
-AGPL-3.0-or-later
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Please follow Nextcloud coding standards and include appropriate tests.
+## 📝 License
+
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- **Documentation**: Check this README and inline code comments
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/allandzr/nextcloud-n8n-talk-not/issues)
+- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/allandzr/nextcloud-n8n-talk-not/discussions)
+
+## 🙏 Acknowledgments
+
+- [Nextcloud](https://nextcloud.com/) for the amazing platform
+- [n8n](https://n8n.io/) for workflow automation
+- Nextcloud Talk team for the chat platform
 
 ---
 
-**Note**: This app is designed for development and testing. Review security implications before using in production environments. 
+**Made with ❤️ for the Nextcloud community**
