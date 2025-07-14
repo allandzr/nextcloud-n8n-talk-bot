@@ -1,0 +1,74 @@
+/**
+ * SPDX-FileCopyrightText: 2025 Your Name
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+#nextcloud-talk-bot-admin .setting {
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--color-border);
+}
+
+#nextcloud-talk-bot-admin .setting:last-child {
+	border-bottom: none;
+}
+
+#nextcloud-talk-bot-admin label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+#nextcloud-talk-bot-admin input[type="text"] {
+	width: 300px;
+	padding: 6px;
+	border: 1px solid var(--color-border);
+	border-radius: 3px;
+}
+
+#nextcloud-talk-bot-admin input[type="checkbox"] {
+	margin-right: 8px;
+	width: 16px;
+	height: 16px;
+	display: inline-block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: relative !important;
+	vertical-align: middle;
+}
+
+/* Ensure checkbox labels display inline with the checkbox */
+#nextcloud-talk-bot-admin .setting label {
+	display: flex;
+	align-items: center;
+	font-weight: normal;
+}
+
+#nextcloud-talk-bot-admin .setting label input[type="checkbox"] {
+	margin-right: 8px;
+	flex-shrink: 0;
+}
+
+#nextcloud-talk-bot-admin .settings-hint {
+	margin-bottom: 20px;
+	padding: 15px;
+	background: var(--color-background-hover);
+	border-radius: 3px;
+}
+
+#nextcloud-talk-bot-admin code {
+	background: var(--color-background-darker);
+	padding: 2px 6px;
+	border-radius: 3px;
+	font-family: monospace;
+}
+
+#nextcloud-talk-bot-admin ul {
+	list-style-type: disc;
+	margin-left: 20px;
+}
+
+#nextcloud-talk-bot-admin ul li {
+	margin-bottom: 5px;
+} 

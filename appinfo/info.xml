@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+  - SPDX-FileCopyrightText: 2025 Your Name
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>n8n-talk-bot</id>
+	<name>n8n Talk Bot</name>
+	<summary><![CDATA[n8n-powered automation bot for Nextcloud Talk]]></summary>
+	<description><![CDATA[n8n-powered automation bot for Nextcloud Talk
+
+* 🤖 **n8n Integration** Seamlessly connects Talk messages with n8n workflows
+
+]]></description>
+
+	<version>1.0.0</version>
+	<licence>agpl</licence>
+
+	<author>Andrey Aruslanov</author>
+
+	<namespace>N8nTalkBot</namespace>
+
+	<types>
+		<prevent_group_restriction />
+	</types>
+
+	<category>workflow</category>
+	<category>integration</category>
+
+	<bugs>https://github.com/allandzr/nextcloud-n8n-talk-not/issues</bugs>
+	<repository>https://github.com/allandzr/nextcloud-n8n-talk-not</repository>
+
+	<dependencies>
+		<nextcloud min-version="28" max-version="32"/>
+		<php min-version="8.1"/>
+	</dependencies>
+
+	<background-jobs>
+		<job>OCA\N8nTalkBot\BackgroundJob\CleanupJob</job>
+	</background-jobs>
+
+	<commands>
+		<command>OCA\N8nTalkBot\Command\TestBotCommand</command>
+	</commands>
+
+	<settings>
+		<admin>OCA\N8nTalkBot\Settings\AdminSettings</admin>
+	</settings>
+
+	<navigations>
+	</navigations>
+</info> 
