@@ -17,7 +17,7 @@ A Nextcloud Talk bot that forwards all chat messages to external n8n workflows a
 
 ### Method 1: From GitHub Release
 
-1. Download the latest release from [GitHub Releases](https://github.com/allandzr/nextcloud-n8n-talk-not/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/allandzr/nextcloud-n8n-talk-bot/releases)
 2. Extract to your Nextcloud apps directory:
    ```bash
    cd /path/to/nextcloud/apps-extra/
@@ -33,7 +33,7 @@ A Nextcloud Talk bot that forwards all chat messages to external n8n workflows a
 1. Clone the repository:
    ```bash
    cd /path/to/nextcloud/apps-extra/
-   git clone https://github.com/allandzr/nextcloud-n8n-talk-not.git n8n-talk-bot
+   git clone https://github.com/allandzr/nextcloud-n8n-talk-bot.git n8n-talk-bot
    ```
 2. Enable the app:
    ```bash
@@ -127,8 +127,8 @@ n8n-talk-bot/
 ### Local Development:
 ```bash
 # Clone for development
-git clone https://github.com/allandzr/nextcloud-n8n-talk-not.git
-cd nextcloud-n8n-talk-not
+git clone https://github.com/allandzr/nextcloud-n8n-talk-bot.git
+cd nextcloud-n8n-talk-bot
 
 # Enable in development environment
 docker-compose exec nextcloud php occ app:enable n8n-talk-bot
@@ -155,8 +155,8 @@ This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE)
 ## 🆘 Support
 
 - **Documentation**: Check this README and inline code comments
-- **Issues**: Report bugs on [GitHub Issues](https://github.com/allandzr/nextcloud-n8n-talk-not/issues)
-- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/allandzr/nextcloud-n8n-talk-not/discussions)
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/allandzr/nextcloud-n8n-talk-bot/issues)
+- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/allandzr/nextcloud-n8n-talk-bot/discussions)
 
 ## 🙏 Acknowledgments
 
